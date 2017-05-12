@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="School">
+  <DataContextMoniker Name="/SchoolDataContext" />
+  <nestedChildShapes>
+    <classShape Id="94d5935b-ca7c-4c1f-8aab-ed63e83c72bd" absoluteBounds="3, 0.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/SchoolDataContext/tbPerson" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5f407559-2690-471f-bce0-d738d8e40063" absoluteBounds="3.015, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f844dbec-a545-458c-bbed-3853d661a7f4" absoluteBounds="5.25, 0.5, 2, 2.5401025390625">
+      <DataClassMoniker Name="/SchoolDataContext/tbStudent" />
+      <nestedChildShapes>
+        <elementListCompartment Id="76a85d26-70a3-4394-8dd0-2311f9599cf2" absoluteBounds="5.265, 0.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e5134522-be87-42a3-8827-f75b374ed24e" absoluteBounds="0.5, 0.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/SchoolDataContext/tbTeacher" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7610f679-9079-4ec8-b72e-0d7029d52969" absoluteBounds="0.51499999999999968, 0.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5 : 1.77005126953125); (5.25 : 1.77005126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SchoolDataContext/tbPerson/tbPerson_tbStudent" />
+      <nodes>
+        <classShapeMoniker Id="94d5935b-ca7c-4c1f-8aab-ed63e83c72bd" />
+        <classShapeMoniker Id="f844dbec-a545-458c-bbed-3853d661a7f4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3 : 1.28929768880208); (2.5 : 1.28929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SchoolDataContext/tbPerson/tbPerson_tbTeacher" />
+      <nodes>
+        <classShapeMoniker Id="94d5935b-ca7c-4c1f-8aab-ed63e83c72bd" />
+        <classShapeMoniker Id="e5134522-be87-42a3-8827-f75b374ed24e" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="26c79db8-8f60-4ec7-ae65-5656b94bb175" absoluteBounds="0.5, 2.25, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/SchoolDataContext/tbUser" />
+      <nestedChildShapes>
+        <elementListCompartment Id="175cc86a-15e3-4eae-b62d-0c60d0e23c4a" absoluteBounds="0.51500000000000012, 2.71, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3 : 2.64505126953125); (2.5 : 2.64505126953125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SchoolDataContext/tbPerson/tbPerson_tbUser" />
+      <nodes>
+        <classShapeMoniker Id="94d5935b-ca7c-4c1f-8aab-ed63e83c72bd" />
+        <classShapeMoniker Id="26c79db8-8f60-4ec7-ae65-5656b94bb175" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

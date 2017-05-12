@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "DisplayErrorMessage";
+
+}
+@using (Html.BeginForm("GetTeachers", "Home", FormMethod.Get))
+{
+<p>
+<h2 style="text-decoration-color:crimson;color:lightcoral;"><b>Записът вече съществува в базата данни!</b></h2>
+</p>
+<input type="submit" value="OK" name="GetTeachers"/>
+           
+}
+   

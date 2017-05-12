@@ -1,0 +1,9 @@
+﻿<style>
+    h4{ color:darkblue;}
+    h3{color:seagreen;}
+</style>
+<h3>Connection successful!</h3> 
+<h4>Wellcome, @Session["UserName"] to your session!</h4>
+@Html.ViewBag
+@Html.ActionLink("Back to Login", "Login")
+@Html.ActionLink("Teachers List", "GetTeachers","Home")

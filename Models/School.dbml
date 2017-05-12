@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="School" Class="SchoolDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Person" Member="tbPersons">
+    <Type Name="tbPerson">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tbPerson_tbStudent" Member="tbStudents" Storage="_Students" ThisKey="Id" OtherKey="StudentID" Type="tbStudent" />
+      <Association Name="tbPerson_tbTeacher" Member="tbTeachers" Storage="_Teachers" ThisKey="Id" OtherKey="TeacherID" Type="tbTeacher" />
+      <Association Name="tbPerson_tbUser" Member="tbUsers" ThisKey="Id" OtherKey="PersonID" Type="tbUser" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="tbStudents">
+    <Type Name="tbStudent">
+      <Column Name="StudentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Degree" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Letter" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MotherName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MotherAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FatherName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FatherAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="tbPerson_tbStudent" Member="tbPerson" Storage="_Person" ThisKey="StudentID" OtherKey="Id" Type="tbPerson" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Teacher" Member="tbTeachers">
+    <Type Name="tbTeacher">
+      <Column Name="TeacherID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="tbPerson_tbTeacher" Member="tbPerson" Storage="_Person" ThisKey="TeacherID" OtherKey="Id" Type="tbPerson" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="tbUsers">
+    <Type Name="tbUser">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfChange" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Status" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+      <Column Name="Role" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DateOfCreation" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastLogin" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbPerson_tbUser" Member="tbPerson" ThisKey="PersonID" OtherKey="Id" Type="tbPerson" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.CheckIfUserExists" Method="CheckIfUserExists">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="CheckIfUserExistsResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CheckLogin" Method="CheckLogin">
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="CheckLoginResult">
+      <Column Name="" Member="Column1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.CreateUser" Method="CreateUser">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateOfBirth" Parameter="dateOfBirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Position" Parameter="position" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeletePersonById" Method="DeletePersonById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DisplayUsers" Method="DisplayUsers">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="DisplayUsersResult">
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FindPersonById" Method="FindPersonById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FindPersonByIdResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.FindTeacherById" Method="FindTeacherById">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="FindTeacherByIdResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.IfUserExists" Method="IfUserExists">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="IfUserExistsResult">
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertStudent" Method="InsertStudent">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Position" Parameter="position" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateOfBirth" Parameter="dateOfBirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Number" Parameter="number" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Degree" Parameter="degree" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Letter" Parameter="letter" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MotherName" Parameter="motherName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MotherAddress" Parameter="motherAddress" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="FatherName" Parameter="fatherName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="FatherAddress" Parameter="fatherAddress" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="NChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertTeacher" Method="InsertTeacher">
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateOfBirth" Parameter="dateOfBirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Position" Parameter="position" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Subject" Parameter="subject" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Subject2" Parameter="subject2" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ShowAllStudentsDetailed" Method="ShowAllStudentsDetailed">
+    <ElementType Name="ShowAllStudentsDetailedResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
+      <Column Name="StudentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Degree" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Letter" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MotherName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MotherAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FatherName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FatherAddress" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ShowAllTeachersDetailed" Method="ShowAllTeachersDetailed">
+    <ElementType Name="ShowAllTeachersDetailedResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.StudentsFromClassList" Method="StudentsFromClassList">
+    <Parameter Name="Degree" Parameter="degree" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Letter" Parameter="letter" Type="System.String" DbType="NChar(10)" />
+    <Parameter Name="Subject" Parameter="subject" Type="System.String" DbType="NVarChar(30)" />
+    <ElementType Name="StudentsFromClassListResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AllNotes" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.StudentsFromDegreeList" Method="StudentsFromDegreeList">
+    <Parameter Name="Degree" Parameter="degree" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Letter" Parameter="letter" Type="System.String" DbType="NChar(10)" />
+    <ElementType Name="StudentsFromDegreeListResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Degree" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Letter" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.StudentsFromDegreeListIntersection" Method="StudentsFromDegreeListIntersection">
+    <Parameter Name="Degree" Parameter="degree" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Letter" Parameter="letter" Type="System.String" DbType="NChar(10)" />
+    <ElementType Name="StudentsFromDegreeListIntersectionResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Degree" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Letter" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.StudentsList" Method="StudentsList">
+    <ElementType Name="StudentsListResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MiddleName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfBirth" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Degree" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Letter" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateStudent" Method="UpdateStudent">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Position" Parameter="position" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateOfBirth" Parameter="dateOfBirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Number" Parameter="number" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Degree" Parameter="degree" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Letter" Parameter="letter" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="MotherName" Parameter="motherName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MotherAddress" Parameter="motherAddress" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="FatherName" Parameter="fatherName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="FatherAddress" Parameter="fatherAddress" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateTeacher" Method="UpdateTeacher">
+    <Parameter Name="Id" Parameter="id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="FirstName" Parameter="firstName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Address" Parameter="address" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Position" Parameter="position" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateOfBirth" Parameter="dateOfBirth" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="Subject" Parameter="subject" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Subject2" Parameter="subject2" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.IFExistsPerson" Method="IFExistsPerson" IsComposable="true">
+    <Parameter Name="FisrtName" Parameter="fisrtName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="MiddleName" Parameter="middleName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="LastName" Parameter="lastName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="DateOfBirth" Parameter="dateOfBirth" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateLoginStatus" Method="UpdateLoginStatus">
+    <Parameter Name="PersonID" Parameter="personID" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Status" Parameter="status" Type="System.Int32" DbType="Int" />
+    <Parameter Name="IsActive" Parameter="isActive" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.ValidateUser" Method="ValidateUser">
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="ValidateUserResult">
+      <Column Name="Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUser" Method="GetUser">
+    <Parameter Name="UserName" Parameter="userName" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="Password" Parameter="password" Type="System.String" DbType="VarChar(50)" />
+    <ElementType Name="GetUserResult">
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+</Database>

@@ -1,0 +1,89 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@using System.Web.Mvc;
+
+@model SchoolMVC.Models.Teacher
+
+@{
+    ViewBag.Title = "DetailsTeacher";
+}
+
+<h2></h2>
+
+<div>
+    <h4>Детайли за учител</h4>
+    <hr />
+    <dl class="dl-horizontal" >
+        <dd>
+            @Html.HiddenFor(model => model.Id)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)<br>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)<br>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject2)<br>
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Редакция", "EditTeacher", new { id = Model.Id}, null) |
+    @Html.ActionLink("Назад", "GetTeachers")
+</p>

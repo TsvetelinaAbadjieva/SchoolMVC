@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "DisplayConfirmationMessage";
+
+}
+@using (Html.BeginForm("GetTeachers", "Home", FormMethod.Get))
+{
+    <p>
+        <h2 style="text-decoration-color:crimson;color:blue;"><b> Записът e успешно добавен в базата данни!</b></h2>
+    </p>
+    <input type="submit" value="  OK  " name="GetTeachers" />
+}

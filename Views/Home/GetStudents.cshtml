@@ -1,0 +1,131 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<SchoolMVC.Models.Student>
+
+@{
+    ViewBag.Title = "GetStudents";
+}
+
+<h2>Списък ученици</h2>
+
+<p>
+    @Html.ActionLink("Нов ученик", "Create")
+</p>
+<p>
+    @using (Html.BeginForm("GetStudents", "Home", FormMethod.Get))
+    {
+        <b>Търсене</b>
+        @Html.TextBox("search") <input type="submit" value="Search" /><br>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Degree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Letter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MotherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MotherAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FatherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FatherAddress)
+        </th>
+        
+        <th></th>
+    </tr>
+@if (Model.Count() == 0)
+{
+    <tr>
+        <td colspan="9"><h3><b> Няма съвпадащи записи</b></h3></td>
+    </tr>
+}
+else
+{foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Degree)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Letter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MotherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MotherAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FatherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FatherAddress)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Редакция", "EditStudent", new { id = item.Id }) |
+            @Html.ActionLink("Детайли", "DetailsStudent", new { id = item.Id }) |
+            @Html.ActionLink("Изтрий", "DeletePerson", new { id = item.Id }, new { onclick = "return confirm('Сигурни ли сте, че желаете да изтриете този запис?'); " })
+        </td>
+    </tr>
+    }
+}
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("GetStudents", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })

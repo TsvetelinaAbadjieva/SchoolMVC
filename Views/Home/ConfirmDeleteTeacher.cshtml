@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ConfirmDeleteTeacher</title>
+</head>
+@{Html.BeginRouteForm("DeleteTeacher",new { id=Request.QueryString["id"]})
+<body>
+    <div> 
+        @<h2>Желаете ли да изтриете този запис?</h2>
+        @<input="submit" value="Submit">
+    </div>
+</body>
+}
+</html>

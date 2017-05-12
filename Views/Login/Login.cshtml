@@ -1,0 +1,124 @@
+﻿@model SchoolMVC.Models.Login
+@{
+    ViewBag.Title = "Login";
+}
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<style>
+    table{
+        width:500px;
+        margin:0 auto;
+        text-align:center;  
+        border:1px solid #313151;
+        color:#44586e;
+        font-size:14px;
+
+       
+    }
+    .row{
+        height:45px;
+    }
+    table>td{
+        width:200px;
+        margin-top:15px;
+        align-items:center;
+    }
+    table>tr:first-child{
+        margin-top:20px;
+    }
+    .text-box{
+        width:250px;
+        height:40px;
+        border-radius:4px;
+        align-items:center;
+        float:left;
+        border-color:paleturquoise;
+
+    }
+    #submit{
+        width:120px;
+        height:35px;
+        border-radius:3px;
+        margin-left:170px;
+        border:1px solid grey;
+    }
+    #submit:hover{
+        background-color:#80aec0;
+        color:white;
+    }
+    .text-danger{
+        color: #f05050e6;
+        text-align:left;
+    }
+    h3{
+        color:dimgray;
+    }
+    a{
+        margin-left:110px;
+    }
+</style>  
+<div class="form-group">
+    <h3>Login Page</h3>
+    <hr />
+    @using (Html.BeginForm(FormMethod.Post))
+    { @Html.AntiForgeryToken()
+        <table>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <tr class="col-md-8 row">
+            <td class="col-md-4 col-sm-1"></td>
+            <td class="col-md-4 col-sm-1"></td>
+        </tr>
+            <tr class="col-md-8 row">
+                <td class="col-md-4 col-sm-1">@Html.Label("Username", new { @class = "col-md-2 control-label" })</td>
+                <td class="col-md-4 col-sm-1">@Html.EditorFor(model => model.UserName, new { @class = "form-control text-box" })
+                <td>
+            </tr>
+
+            <tr>
+               
+                <td colspan="2">@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })</td>
+            </tr>
+
+         <tr class="col-md-8 row">
+             <td class="col-md-4 col-sm-1">@Html.Label("Password", new { @class = "col-md-2 control-label" })</td>
+             <td class="col-md-4 col-sm-1">@Html.EditorFor(model => model.Password, new { @class = "form-control text-box" })</td>
+         </tr>
+
+            <tr>
+                
+                <td colspan="2"> @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })</td>
+
+            </tr>
+            
+
+            <tr class="col-md-8 col-sm-1 row">
+               @if (Session["UserName"] == null) { Session["UserName"] = ""; }
+                <td colspan="2" class="col-md-4 col-sm-1">@Html.ActionLink("Forgoten password", "RestorePassword",new {username =Session["UserName"].ToString() })</td>
+                
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" id="submit" name="submit" value="Login"></td>
+            </tr>
+            <tr colspan="2"class="col-md-8 col-sm-2 row" style="float:right">
+                @if (TempData["msg"] != null)
+                {
+                    <td  class="text-danger">
+                        <h4>Incorrect username or password </h4>
+                        
+                       
+                    </td>
+                }
+            </tr>
+
+
+    </table>
+
+    }
+
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
